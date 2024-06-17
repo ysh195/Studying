@@ -9,26 +9,63 @@ import java.awt.event.ActionListener;
 
 public class Make_a_table {
 
-	public static void main(String[] args) { // 이제 텍스트 필드 일원화하고 알아서 나눠 가지도록 수정해야 함. 그리고 데이터 추출하는 방법만 구현하면 끝
+	public static void main(String[] args) { // 그리고 데이터 추출하는 방법만 구현하면 끝
 		
 		Dimension dim = new Dimension(800,400);
 		
 		JFrame frame = new JFrame("테이블 만들기");
 		frame.setLocation(200, 400);
 		frame.setPreferredSize(dim);
+		String[] inputArrStr = {"한글","고객명단","13254|김철수|010-0000-0000|브론즈^18742|김영희|010-1234-5678|골드^39615|이민수|010-9126-7913|플래티넘"};
+		int y_tellingSign_count = (inputArrStr[2].length() - inputArrStr[2].replace("^", "").length())+1; // 찾는 기호를 모두 ""로 바꿔버리고 바꾸기 전의 문자열 길이와 바꾼 후의 문자열 길이를 비교하면 몇 개인지 알 수 있음
+
+		int x_tellingSign_count = 0;
+		String temp1 = inputArrStr[2];
+		while(temp1.contains("^")) { // 이렇게 하면 ^가 없는 마지막줄은 빠짐
+			String temp2 = temp1.substring(0, temp1.indexOf("^"));
+			x_tellingSign_count = Math.max(x_tellingSign_count, temp2.length()-temp2.replace("|", "").length());
+			temp1 = temp1.substring(temp1.indexOf("^")+1, temp1.length());
+		}
 		
-		String header[] = {"ID","이름","전화번호","등급"};
-		String contents[][]= {
-				{"13254","김철수","010-0000-0000","브론즈"},
-				{"18742","김영희","010-1234-5678","골드"},
-				{"39615","이민수","010-9126-7913","플래티넘"}
-		};
+		String temp2 = temp1.substring(0, temp1.length()); // 마지막 줄에 대한 걸 한 번 더 해서 보완. 
+		x_tellingSign_count = Math.max(x_tellingSign_count, temp2.length()-temp2.replace("|", "").length())+1;
+		
+		String[][] contents = new String[y_tellingSign_count][x_tellingSign_count];
+
+		seperating_process : for(int i=0; i<y_tellingSign_count; i++) { // 이건 구조가 좀 복잡하겠네. 마지막에 ^가 없으면 -1되고 보정해도 0이니까 계산이 안됨
+			for(int j=0; j<x_tellingSign_count; j++) {
+				
+				int sepX = inputArrStr[2].indexOf("|");
+				int sepY = inputArrStr[2].indexOf("^");
+				
+				if((sepX == -1) && (sepY == -1)) {
+					contents[i][j] = inputArrStr[2].substring(0, inputArrStr[2].length());
+					break seperating_process;
+				}
+				else {
+					int tempX = Math.max(sepX, 0);
+					int tempY = Math.max(sepY, 0);
+					
+					if(((tempX <= 0) || (tempY <= tempX))&&(tempY >= 1)) { // 이렇게 가도 tempX가 0인데 
+						contents[i][j] = inputArrStr[2].substring(0, tempY);
+						inputArrStr[2] = inputArrStr[2].substring(tempY+1, inputArrStr[2].length());
+					}
+					else {
+						contents[i][j] = inputArrStr[2].substring(0, tempX);
+						inputArrStr[2] = inputArrStr[2].substring(tempX+1, inputArrStr[2].length());
+					}
+				}
+				
+			}
+		}
+		
+		String[] header = new String[x_tellingSign_count];
 		
 		DefaultTableModel model = new DefaultTableModel(contents,header); // 테이블 수정과 관련된 것
 		
 		JTable table = new JTable(model); // 테이블 생성.
 		// 내용을 모델에 넘기고, 모델을 테이블에 연결.
-
+		table.setTableHeader(null);
 		JScrollPane scrollpane = new JScrollPane(table);
 		
 		JPanel panel = new JPanel();
@@ -39,8 +76,14 @@ public class Make_a_table {
 		
 		JTextField textField = new JTextField(8);
 		
-		panel.add(textField);
+		JTextField sort_textField = new JTextField(inputArrStr[0],3);
+		JTextField title_textField = new JTextField(inputArrStr[1],3);
 		
+		String[] comboText = {"한글","워드","엑셀","쿼리"};
+		JComboBox sortCombo = new JComboBox(comboText);
+		
+		panel.add(textField);
+				
 		JButton addYBtn = new JButton("Y 추가"); // X 추가도 필요.
 		addYBtn.addActionListener(new ActionListener() {
 
@@ -82,7 +125,7 @@ public class Make_a_table {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				model.addColumn(textField.getText()); // 모델에서 줄 생성하면서 내용만 추가하는 것과, 그냥 제목만 넣고 추가하는 게 있는데, 서로 이름이 같으니 주의
+				model.addColumn(""); // 모델에서 줄 생성하면서 내용만 추가하는 것과, 그냥 제목만 넣고 추가하는 게 있는데, 서로 이름이 같으니 주의
 			}
 			
 		});
@@ -118,27 +161,46 @@ public class Make_a_table {
 			
 		});
 		
-		JButton saveBtn = new JButton("저장");
+		JButton saveBtn = new JButton("저장"); // return 해야 하나
 		saveBtn.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) { // 저장 기능만 구현하면 이제 끝
-				model.setColumnCount(0);
+				int size_x = model.getColumnCount();
+				int size_y = model.getRowCount();
+				String[] result = new String[3];
+				if(title_textField.getText().length() <= 0) { // 이유는 모르겠지만 ""이나 null이 아닌 걸로 인식함. 그래서 글자 길이로 판단
+					title_textField.setText("NoName");
+				}
+				result[0] = sortCombo.getSelectedItem().toString(); // 현재 선택된 것. 이걸 텍스트로 가져오려면 toString이 필요하다고 함
+				result[1] = title_textField.getText();
+				result[2] = "";
+				
+				for(int i=0; i<size_y; i++) {
+					for(int j=0; j<size_x; j++) {
+						result[2] += (model.getValueAt(i, j).toString().length() <= 0) ? " " : model.getValueAt(i, j);
+						if(j != size_x-1) {
+							result[2] += "|";
+						}
+					}
+					if(i != size_y-1) {
+						result[2] += "^";
+					}
+				}
+				for(String s : result) {
+					System.out.println(s);
+				}
 			}
 			
 		});
-		
 		panel.add(addXBtn);
 		panel.add(addYBtn);
 		panel.add(removeXBtn);
 		panel.add(removeYBtn);		
 		
+		panelA.add(sortCombo);
+		panelA.add(title_textField);
 		panelA.add(saveBtn);
-		
-		// table.setValueAt("200", 2, 1); // 해당 좌표 내의 값 변경
-		System.out.println(table.getRowCount()); // 테이블의 세로 길이 표현
-		System.out.println(table.getColumnCount()); // 테이블의 세로 길이 표현		
-		
+			
 		frame.add(scrollpane,BorderLayout.CENTER);		
 		
 		
