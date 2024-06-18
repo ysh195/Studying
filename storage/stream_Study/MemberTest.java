@@ -25,7 +25,7 @@ public class MemberTest {
 		// 그럼 맵으로 조건을 판별한 뒤에 전달되는 건 멤버가 아니라 true/false네?
 		// 근데 또 필터가 출력하는 건 멤버 자체네?
 		// 일치하는 게 없으면 그냥 아무 것도 안 나옴. 오류도 없음
-
+		// 중간에는 스트림을 진행해야 하니까 반드시 리턴이 필요하고, 중간에 쓰는 함수와 끝에 쓰는 함수가 다름
 	}
 	
 	private static void login_success(Member member) {
