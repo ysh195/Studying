@@ -14,7 +14,7 @@ public class Screen{
 	Screen(){
 		Dimension dim = new Dimension(800,400);
 		Font font = new Font("Serif",Font.BOLD,50);
-		JFrame frame = new JFrame("텍스트 에어리어 만들기");
+		JFrame frame = new JFrame("디지털 시계");
 		frame.setLocation(200, 400);
 		frame.setPreferredSize(dim);
 		
