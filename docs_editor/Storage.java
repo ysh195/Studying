@@ -31,6 +31,8 @@ public class Storage {
 		newTemp[num][2] = saveFile[2];
 		
 		FileList = newTemp;
+		
+		System.out.println("저장소 내에 새로운 파일이 생성되었습니다.");
 
 	}
 	
