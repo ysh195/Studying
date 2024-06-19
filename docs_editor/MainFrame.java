@@ -154,7 +154,7 @@ public class MainFrame {
 				}
 				
 				for(int i=0; i<inputArrStr.length; i++) {
-					if(Storage.getInstance().FileList[i][0].equals((String)sortCombo.getSelectedItem())&&Storage.getInstance().FileList[i][1].equals(textField.getText())) {
+					if(Storage.getInstance().FileList[i][0].equals(String.valueOf(sortCombo.getSelectedItem()))&&Storage.getInstance().FileList[i][1].equals(textField.getText())) {
 						location = i;
 						break;
 					}						
