@@ -182,7 +182,7 @@ public class Make_a_table {
 				
 				for(int i=0; i<size_y; i++) {
 					for(int j=0; j<size_x; j++) {
-						result[2] += (model.getValueAt(i, j).toString().length() <= 0) ? " " : model.getValueAt(i, j);
+						result[2] += (String.valueOf(model.getValueAt(i, j)).length() <= 0) ? " " : model.getValueAt(i, j);
 						if(j != size_x-1) {
 							result[2] += "|";
 						}
