@@ -15,6 +15,8 @@ public class PrintAnnotationEx {
 			// PrintAnnotation 클래스에 선언된 메서드를 printAnnotation로 옮김. 근데 메서드를 순서대로 주는 게 아니라 무작위로 줌
 			// getDeclaredAnnotation은 @~~ 그 자체(Ex : @PrintAnnotation("*"))를 넘겨줌.
 			// 그렇게 해서 오리지널인 printAnnotation에 덮어씌우는데, 넘겨준 @에 값이 설정되어 있으면 그걸 우선하고, 없으면 오리지널의 디폴트를 우선함.
+			// 그렇게 해서 오리지널인 printAnnotation에 덮어씌우는데, 넘겨준 @에 값이 설정되어 있으면 그걸 우선하고, 없으면 오리지널의 디폴트를 우선함.
+			// 어노테이션 그 자체가 하나의 값인데, 어노테이션 관련 메서드를 통해서 그 값을 사용하지 않으면 어노테이션이 존재하지 않는 것과 같음
 			
 			System.out.println(printAnnotation.toString());
 			// 코드를 살펴보니 괄호 안에 PrintAnnotation.class 들어가는 건 어떤 의미가 있는 게 아니라, 그냥 규칙임.
