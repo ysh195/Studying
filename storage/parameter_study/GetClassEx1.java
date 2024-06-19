@@ -24,7 +24,7 @@ public class GetClassEx1 {
 		
 		Field[] fields = clazz.getDeclaredFields();
 		for(Field e : fields) {
-			System.out.println(e.getType().getName() + " " + e.getName());
+			System.out.println(e.getType() + " " + e.getName());
 		}
 		System.out.println();
 		
