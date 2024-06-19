@@ -1,4 +1,4 @@
-package four;
+package four; // storage에서 새로운 저장 방식을 만들어서 사용해야 함.
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; // 테이블 수정에 관련된 패키지
