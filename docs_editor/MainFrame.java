@@ -165,7 +165,7 @@ public class MainFrame {
 					return;
 				}
 				else {
-					System.out.println("존재하는 파일입니다.");
+					System.out.println("파일 편집창을 활성화합니다.");
 				}
 				
 				String sortType = String.valueOf(sortCombo.getSelectedItem());

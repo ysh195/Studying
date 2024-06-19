@@ -45,11 +45,10 @@ public class Make_a_text {
 			@Override
 			public void actionPerformed(ActionEvent e) { // 저장 기능만 구현하면 이제 끝
 				String[] result = new String[3];
-				result[0] = sortCombo.getSelectedItem().toString(); // 현재 선택된 것. 이걸 텍스트로 가져오려면 toString이 필요하다고 함
+				result[0] = String.valueOf(sortCombo.getSelectedItem()); // 현재 선택된 것. 이걸 텍스트로 가져오려면 toString이 필요하다고 함
 				result[1] = title_textField.getText();
 				result[2] = textArea.getText();
-				
-				Storage.getInstance().save_in_storage(result);
+				Storage.getInstance().save_edited(result);
 				System.out.println("편집 내용 저장 완료");
 				
 			}

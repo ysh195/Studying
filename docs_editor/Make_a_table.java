@@ -1,4 +1,4 @@
-package four; // storage에서 새로운 저장 방식을 만들어서 사용해야 함.
+package four;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; // 테이블 수정에 관련된 패키지
@@ -178,7 +178,7 @@ public class Make_a_table {
 				if(title_textField.getText().length() <= 0) { // 이유는 모르겠지만 ""이나 null이 아닌 걸로 인식함. 그래서 글자 길이로 판단
 					title_textField.setText("NoName");
 				}
-				result[0] = sortCombo.getSelectedItem().toString(); // 현재 선택된 것. 이걸 텍스트로 가져오려면 toString이 필요하다고 함
+				result[0] = String.valueOf(sortCombo.getSelectedItem()); // 현재 선택된 것. 이걸 텍스트로 가져오려면 toString이 필요하다고 함
 				result[1] = title_textField.getText();
 				result[2] = "";
 				
@@ -193,7 +193,7 @@ public class Make_a_table {
 						result[2] += "^";
 					}
 				}
-				Storage.getInstance().save_in_storage(result);
+				Storage.getInstance().save_edited(result);
 				System.out.println("편집 내용 저장 완료");
 			}
 			

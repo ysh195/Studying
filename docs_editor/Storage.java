@@ -84,5 +84,27 @@ public class Storage {
 		return bringOut;
 	}
 	
+	public static void save_edited(String[] input) {
+		
+		if(input.length != 3) {
+			System.out.println("저장하기에 적합하지 않은 크기입니다.");
+			return;
+		}
+		
+		int location = -1;
+		for(int i=0; i<FileList.length; i++) {
+			if(FileList[i][0].equals(input[0])&&FileList[i][1].equals(input[1])) {
+				location = i;
+			}
+		}
+		
+		if(location == -1) {
+			System.out.println("해당 파일을 찾을 수 없습니다.");
+			return;
+		}
+		
+		FileList[location][2] = input[2];
+	}
+	
 	
 }
