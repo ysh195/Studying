@@ -3,20 +3,22 @@ package four;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; // 테이블 수정에 관련된 패키지
 
+import fileEditor.storage.Storage;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Make_a_text {
 
-	public static void main(String[] args) { // 그리고 데이터 추출하는 방법만 구현하면 끝
+	public Make_a_text(String[] input) { // 그리고 데이터 추출하는 방법만 구현하면 끝
 		
 		Dimension dim = new Dimension(800,400);
 		
 		JFrame frame = new JFrame("텍스트 에어리어 만들기");
 		frame.setLocation(200, 400);
 		frame.setPreferredSize(dim);
-		String[] inputArrStr = {"한글","23.Q1 실적 보고서","AAAAAA"};
+		String[] inputArrStr = input;
 		
 		JTextArea textArea = new JTextArea();
 		JScrollPane scrollpane = new JScrollPane(textArea);
@@ -47,9 +49,8 @@ public class Make_a_text {
 				result[1] = title_textField.getText();
 				result[2] = textArea.getText();
 				
-				for(String s : result) {
-					System.out.println(s);
-				}
+				Storage.getInstance().save_in_storage(result);
+				System.out.println("편집 내용 저장 완료");
 				
 			}
 			

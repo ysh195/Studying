@@ -3,20 +3,22 @@ package four;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; // 테이블 수정에 관련된 패키지
 
+import fileEditor.storage.Storage;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Make_a_table {
 
-	public static void main(String[] args) { // 그리고 데이터 추출하는 방법만 구현하면 끝
+	public Make_a_table(String[] input) { // 그리고 데이터 추출하는 방법만 구현하면 끝
 		
 		Dimension dim = new Dimension(800,400);
 		
 		JFrame frame = new JFrame("테이블 만들기");
 		frame.setLocation(200, 400);
 		frame.setPreferredSize(dim);
-		String[] inputArrStr = {"엑셀","고객명단","회원 아이디|회원 이름|전화번호|회원등급^13254|김철수|010-0000-0000|브론즈^18742|김영희|010-1234-5678|골드^39615|이민수|010-9126-7913|플래티넘"};
+		String[] inputArrStr = input;
 		int y_tellingSign_count = (inputArrStr[2].length() - inputArrStr[2].replace("^", "").length())+1; // 찾는 기호를 모두 ""로 바꿔버리고 바꾸기 전의 문자열 길이와 바꾼 후의 문자열 길이를 비교하면 몇 개인지 알 수 있음
 
 		int x_tellingSign_count = 0;
@@ -191,9 +193,8 @@ public class Make_a_table {
 						result[2] += "^";
 					}
 				}
-				for(String s : result) {
-					System.out.println(s);
-				}
+				Storage.getInstance().save_in_storage(result);
+				System.out.println("편집 내용 저장 완료");
 			}
 			
 		});

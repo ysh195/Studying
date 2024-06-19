@@ -1,11 +1,10 @@
 package four;
 
+import fileEditor.storage.Storage;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel; // 테이블 수정에 관련된 패키지
 import javax.swing.table.JTableHeader;
-
-import fileEditor.storage.Storage;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,7 @@ public class MainFrame {
 		// 콤보와 텍스트필드에 입력된 것으로 저장된 파일 데이터에서 알맞은 것을 찾아서 열기		
 		Dimension dim = new Dimension(800,400);
 		
-		JFrame frame = new JFrame("메인 프레임");
+		JFrame frame = new JFrame("문서 편집기");
 		frame.setLocation(200, 400);
 		frame.setPreferredSize(dim);
 		
@@ -104,7 +103,7 @@ public class MainFrame {
 				
 				Storage.getInstance().save_in_storage(new_save);
 				System.out.println("새로운 파일이 생성되었습니다.");
-				System.out.println("유형 : " + new_save[0] + ", 이름 : " + new_save[1]);
+				System.out.println("파일 유형 : " + new_save[0] + ", 파일 이름 : " + new_save[1]);
 				
 				String[] insertStr = new String[2];
 				insertStr[0] = new_save[0];
@@ -146,10 +145,39 @@ public class MainFrame {
 		add_open_file_Btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// 유형 체크
-				// 해당 파일이 실제로 존재하는지 체크
-				// 유형에 맞는 편집창 열기
-				// 편집창에 데이터 보내주기
+				
+				int location = -1;
+				
+				if((textField.getText() == null) | (sortCombo.getSelectedItem() == null)) { // 해당 파일이 실제로 존재하는지 체크
+					System.out.println("유형 또는 제목을 입력하세요.");
+					return;
+				}
+				
+				for(int i=0; i<inputArrStr.length; i++) {
+					if(Storage.getInstance().FileList[i][0].equals((String)sortCombo.getSelectedItem())&&Storage.getInstance().FileList[i][1].equals(textField.getText())) {
+						location = i;
+						break;
+					}						
+				}
+				
+				if(location <= -1) {
+					System.out.println("해당 파일이 존재하지 않습니다.");
+					return;
+				}
+				else {
+					System.out.println("존재하는 파일입니다.");
+				}
+				
+				String sortType = String.valueOf(sortCombo.getSelectedItem());
+				
+				if(sortType.equals("엑셀")||sortType.equals("쿼리")) { // 유형에 맞는 편집창 열기
+					// make a table 생성자가 변수를 전달 받도록 해야 함.
+					// 편집창에 데이터 보내주기
+					// 테이블이 데이터 처리 빡세니까 조건 맞을 때만 이걸로 열기
+				}
+				else {
+					// 마찬가지
+				}		
 			}
 			
 		});
