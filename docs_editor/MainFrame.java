@@ -171,11 +171,13 @@ public class MainFrame {
 				String sortType = String.valueOf(sortCombo.getSelectedItem());
 				
 				if(sortType.equals("엑셀")||sortType.equals("쿼리")) { // 유형에 맞는 편집창 열기
+					Make_a_table openedFile = new Make_a_table(Storage.bring_file(location));
 					// make a table 생성자가 변수를 전달 받도록 해야 함.
 					// 편집창에 데이터 보내주기
 					// 테이블이 데이터 처리 빡세니까 조건 맞을 때만 이걸로 열기
 				}
 				else {
+					Make_a_text openedFile = new Make_a_text(Storage.bring_file(location));
 					// 마찬가지
 				}		
 			}

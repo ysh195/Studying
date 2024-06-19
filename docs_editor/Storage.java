@@ -73,25 +73,13 @@ public class Storage {
 		System.out.println("저장소에서 삭제되었습니다.");
 	}
 	
-	public static String[][] bring_file(String sort, String name){  // 이거 받을 메서드는 null값에 대한 대비가 필요함.
+	public static String[] bring_file(int location){  // 이거 받을 메서드는 null값에 대한 대비가 필요함.
 		
-		String[][] bringOut = new String[1][3];
-		
-		int location = -1;
-		for(int i=0; i<FileList.length; i++) {
-			if(FileList[i][1].equals(name)&&FileList[i][0].equals(sort)) {
-				location = i;
-			}
-		}
-		
-		if(location == -1) {
-			System.out.println("해당 파일을 찾을 수 없습니다.");
-			return null;
-		}
-		
-		bringOut[0][0] = FileList[location][0];
-		bringOut[0][1] = FileList[location][1];
-		bringOut[0][2] = FileList[location][2];
+		String[] bringOut = new String[3];
+	
+		bringOut[0] = FileList[location][0];
+		bringOut[1] = FileList[location][1];
+		bringOut[2] = FileList[location][2];
 		
 		return bringOut;
 	}
