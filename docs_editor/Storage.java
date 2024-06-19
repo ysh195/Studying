@@ -68,6 +68,7 @@ public class Storage {
 		}
 		
 		FileList = temp;
+		System.out.println("저장소에서 삭제되었습니다.");
 	}
 	
 	public static String[][] bring_file(String sort, String name){  // 이거 받을 메서드는 null값에 대한 대비가 필요함.
