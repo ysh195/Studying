@@ -1,6 +1,4 @@
 package ch13.sec05;
-// 이건 책이 잘못됨. Person 내부 클래스를 사용해야 해서 Person을 import로 쏴줘야 하고, 내부 클래스에 다 static 지정해야 함
-import ch13.sec05.Person.*;
 
 public class GenericExample {
 

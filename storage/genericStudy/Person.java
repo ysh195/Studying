@@ -1,10 +1,11 @@
 package ch13.sec05;
 
-public class Person {
-	
-	static class Worker extends Person{}
-	static class Student extends Person{}
-	static class HighStudent extends Student{}
-	static class MiddleStudent extends Student{}
-	
-}
+public class Person {}
+
+class Worker extends Person{}
+
+class Student extends Person{}
+	class HighStudent extends Student{}
+	class MiddleStudent extends Student{}
+
+

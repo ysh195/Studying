@@ -1,7 +1,5 @@
 package ch13.sec05;
 
-import ch13.sec05.Person.*;
-
 public class Course {
 	
 	public static void registerCourse1(Applicant<?> applicant) {
@@ -20,5 +18,5 @@ public class Course {
 		// 아무거나(?) 중에서도 Worker를 상속한 애들만 받겠다고 제한
 		System.out.println(applicant.kind.getClass().getSimpleName() + "이(가) Course3을 등록함");
 	}
-
+	
 }
