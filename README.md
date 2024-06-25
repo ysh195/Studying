@@ -1,2 +1,2 @@
-Map에서 키를 클래스명으로 받고, 그 값들을 클래스 내부 필드로 받으면 깔끔하려나?
-아니면 클래스와 내부 필드를 값으로 받을까?
+https://pythontutor.com/java.html#mode=edit
+https://pythontutor.com/visualize.html#mode=edit
