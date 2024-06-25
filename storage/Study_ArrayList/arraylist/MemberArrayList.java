@@ -1,5 +1,6 @@
 package arraylist;
 // list는 저장하는 객체의 해쉬코드의 일치 여부로 중복값인지 파악함. 따라서 멤버 클래스 내부에서 해쉬코드를 생성하는 방식을 수정하면 중복 체크의 방법을 간접적으로 조절할 수 있음
+// 근데 내부의 eqauls 메서드를 수정하는 걸로는 안 됨. 아무래도 객체의 equals를 사용해서 비교하는 게 아니라, arrayList 내부 절차를 통해 확인하는 듯
 import java.util.*;
 import collection.Member; // 내가 만든 컬렉션 패키지에서 가져올 수도 있네
 
